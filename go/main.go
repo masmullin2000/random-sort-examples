@@ -8,14 +8,16 @@ import (
 )
 
 func make_random_vec(sz uint64, mod int64) []int64 {
-    v := make([]int64, 1)
+    v := make([]int64, sz)
     //rand.Seed(time.Now().Unix())
 
     for i := uint64(0); i < sz; i++ {
         val := rand.Int63n(mod) 
-        v = append(v, val)
+        //v = append(v, val)
+        v[i] = val
     }
 
+    //fmt.Println(len(v))
     return v
 }
 
@@ -34,16 +36,13 @@ func (s sort_int_interface) Less(i, j int) bool {
 }
 
 func main() {
-    //Provide seed
-
     //Generate a random array of length n
     vec := make_random_vec(1000000, 100)
 
-    for i := 0; i < 1000; i++ {
+    for i := 0; i < 250; i++ {
         var v []int64
         v = append(v, vec...)
-        //sort.Sort(sort_int_interface(v))
-        sort.Stable(sort_int_interface(v))
+        sort.Sort(sort_int_interface(v))
+        //sort.Stable(sort_int_interface(v))
     }
-    //fmt.Println(vec)
 }
